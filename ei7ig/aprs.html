@@ -1,0 +1,173 @@
+<html>
+<head>
+<title>EI7IG's APRS Page</title></head><body bgcolor="#ffffff" link="#0000ff" vlink="#800080">
+<p><font size="-2"> Last updated: 20140413</font></p>
+<i><a href="http://www.aprs.org">Automatic Packet/Position Reporting
+System</a> was developed by Bob Bruninga, WB4APR, for tracking and digital
+communications with mobile GPS equipped stations with a two-way radio (check
+out the <a href="http://info.aprs.net/">APRS Wiki</a>).</i>
+<p>
+Where am I? (work most likely)
+</p>
+<p>
+	<script type="text/javascript">
+	he_track = "ei7ig-9"; // track this callsign
+	</script>
+	<script type="text/javascript" src="http://aprs.fi/js/embed.js">
+	</script>
+</p>
+
+<a name="APRSIntro"></a><h3>An Introduction to APRS</h3>
+<p>
+I was asked to do an APRS introduction at the <a href="http://www.tapr.org/dcc">2009 TAPR DCC</a>. So I updated the 
+previous slidesets and it is available <a href="http://www.ei7ig.org/files/Intro_to_APRS.pdf">here</a> ( about 2.7MB pdf).
+</p>
+<p>
+I also wrote an article (An Introduction to APRS) for the IRTS's "Echo Ireland" newsletter in an attempt to make some of the ideas in the slides a bit clearer.  A PDF of the
+article is available <a href="http://www.ei7ig.org/files/IntroToAPRS.pdf">here</a>, and a further article on some of the more advanced features is available <a href="http://www.ei7ig.org/files/AdvancedAPRS.pdf">here</a> 
+</p>
+<p>
+Before try anything on APRS, please read <a href="http://www.febo.com/packet/layer-one/transmit.html">this</a> first. If you are having trouble either having your packets decoded or decoding someone elses packets.
+</p>
+<p>
+Some good places to start gathering information are <a href="http://aprs.org">WB4APR's homepage at aprs.org</a>,
+the <a href="http://info.aprs.net">APRS Wiki</a>, <a href="http://aj3u.com">AJ3U's tips on using the TM-D700</a>, 
+and <a href="http://aprs.fi">aprs.fi</a> OH7LZB's Google map based tracking. Have a look at Stephen, WA8MLF's
+page on <a href="http://wa8lmf.net/aprs/HF_APRS_Notes.htm">HF APRS</a>.
+</p>
+
+<p>
+<font size="-2">Have you read <a href="http://www.febo.com/packet/layer-one/transmit.html">it</a> yet?</font>
+</p>
+
+
+<h3>APRS Voice Alert</h3>
+First, I suggest you have a read of WB4APRs <a href="http://aprs.org/VoiceAlert3.html">Voice Alert</a> page. Basically it's a method to utilise 144.800 to automatically alert
+you to the fact that another mobile is in simplex range. 
+
+The rules are simple and should be obvious to anyone who thinks about how the system works:
+<ul>
+
+<li>Program your radio with two APRS channels for easy switching. One with CTCSS 136.5 and one without.</li>
+<li>APRS Voice Alert is for "ATTENDED OPERATIONS ONLY". Never leave it on unattended. </li>
+<li>An unattended Voice Alert station is a NUISANCE to everyone for miles around. </li>
+<li>Voice-Alert is a calling channel ONLY. QSY immediately to a normal voice channel.</li>
+<li>ALWAYS say "voice alert" in any CTCSS 136.5 voice transmission to minimize confusion on receipt</li>
+<li>If you turn your 144.800 speaker volume down, then turn off CTCSS or stop beaconing.</li>
+</ul>
+
+<p>
+Kenwood TM-D710 users, check your user manuals on section APRS-13. There's also a section on Voice Alert. 
+<p>
+
+<p>
+Note: If you don't have a radio like the Kenwood D7/D700/D710 (capable of putting Tx/Rx CTCSS code 
+squelch on APRS packets), you can still utilize the Voice Alert concept. Simply add the APRS frequency 
+(144.800 MHz in Europe) with 136.5t CTCSS Tx/Rx frequency to your list of scan channels and then you 
+will only hear any APRS packets sent with the same CTCSS tone frequency. Naturally, in this case 
+you won't be able to decode the APRS packets, but you will know that someone is within range of 
+having a simplex QSO. 
+</p>
+<p>
+Simply invite the other party to a 2m simplex channel as described in WB4APR's instructions. Remember 
+to Tx with the same CTCSS code, otherwise the other party's squelch will not open. 
+</p>
+<p>
+Hint: As WB4APR mentioned in his <a href="http://aprs.org/VoiceAlert3.html">instructions</a>, the fact 
+you are transmitting APRS packets with a CTCSS tone means you are there to answer Voice Alerts. 
+If you want to transmit APRS packets when away from the rig then do so, but without the CTCSS tone. 
+An easy way to do this is to utilize two memory channels and switch between them as necessary:
+</p>
+
+<ul>
+<li>Memory A) APRS 144.800 MHz with CTCSS 136.5 Hz (Rx & Tx).</li>
+<li>Memory B) APRS 144.800 MHz without CTCSS. </li>
+</ul>
+<p>
+At a recent AREN event I used it to call Francis, <a href="http://aprs.fi?call=EI5GOB-9">EI5GOB</a>. I was out of 
+range of the <a href="http://http://www.searg.com/repeaters.php">SIRN repeater system</a>, I heard a Voice Alert packet, looked at the display, spotted it was Francis, EI5GOB
+and quickly passed a message to him, we also agreed a simplex channel to operate on until we both got back in range of the <a href="http://http://www.searg.com/repeaters.php">repeater system</a>.
+</p>
+
+<h3>APRS In Ireland</h3> <p ie="aprs"></p>
+We still have a 'fledgeling' APRS infrastructure here in Ireland, mostly concentrated in the South, South East and East of the country, with some activity in Dublin (EI7BFB Digi and I-Gate), Galway, Limerick, Cork and Tipperary.
+
+<p>
+At the moment the main part of the infrastructure is maintained by the 
+<a href="http://www.searg.com">South Eastern Amateur Radio Group</a> and it consists of the nodes:
+<ul>
+<li>EI2WCP   - in Carraigpherish, Waterford City</li>
+<li>EI2FHP   - in Faha, Dungarvan</li>
+<li>EI2MLP   - on Mount Leinster</li>
+<li>EI2TTP   - in Templetown, County Wexford</li>
+<li>EI2GCP-2 - in Galway</li>
+<li>EI9EYB-2 - in Fedamore, Co. Limerick</li>
+<li>EI5CRC   - Co. Cork</li>
+<li>EI7DKB-1 - Cork Harbour</li>
+</ul>
+
+Also, there are I-Gates operational at EI4GTB, EI3RCW (Waterford Institute of Technology), and sometimes my own home station.
+
+EI8JA (SEARG's equipment manager) and I encourage the use of the following UI-PATHS in Ireland:
+<ul>
+<li> WIDE1-1, WIDE2-2 for Mobile Trackers</li>
+<li> WIDE2-2 for Base/Fixed Stations (APRS,WIDE2-2 for UI-View)</li>
+</ul>
+
+At the moment, that is enough to reach an I-gate from pretty much anywhere in the network, which consists
+of a mixture of TNC's running  <a href="http://www.ir3ip.net/iw3fqg/uidigi-e.htm">UI-DIGI</a> and 
+<a href="https://www.argentdata.com/catalog/product_info.php?cPath=22&products_id=73">Argent Data Systems Tracker2</a> 
+(both the T2-135 and OT2 versions)
+
+
+
+<h3>APRS Internet Servers</h3>
+<p>
+The APRS-IS is an Internet-based backbone network which interconnects APRS radio networks. The core network 
+consists of three (two now?) first-tier servers and numerous second-tier servers, providing a unified 
+worldwide APRS stream to connected clients. </p>
+<p>
+Purely for practical reasons (aggregation), not political ones, I maintain a <a href="http://www.aprs2.net">Tier 2</a> server 
+<a href="http://ireland.aprs2.net:14501">ireland.aprs2.net</a>, which allows Irish APRS Internet Clients 
+a common aggregation point. 
+<p>
+The easiest way to gain access would be to configure your APRS client to connect to 
+<code>ireland.aprs2.net</code> with the port set to <code>14579</code>
+</p>
+
+<a name="MAPS"></a><h3>Irish Maps</h3>
+<p>
+Xastir now supports downloading <a href="http://www.openstreetmap.org">OpenStreetMap</a> tiles on the fly, so the rest of this section may no longer be relevant.
+</a>
+
+<p>
+<a href="http://ireland.aprs2.net/xastir/IrelandMaps/Ireland.tar.gz">Here</a> are some maps made 
+available courtsey of Tim, EI8IC. I added the .inf and .geo files in order
+that  <a href="http://www.xastir.org/">Xastir</a> and <a href="http://www.ui-view.org/">UI-VIEW</a> can use them.
+</p>
+
+<p>
+I have also generated a (9MB) map of the entire <a href="http://ireland.aprs2.net/xastir/IrelandMaps/Ireland1600x2000.bmp">country</a>, 
+with a <a href="http://ireland.aprs2.net/xastir/IrelandMaps/Ireland1600x2000.geo">geo</a> and 
+<a href="http://ireland.aprs2.net/xastir/IrelandMaps/Ireland1600x2000.inf">inf</a>, and the 
+<a href="http://ireland.aprs2.net/xastir/IrelandMaps/IrelandSE1600x2000.bmp">South East</a> (also 9MB) with a 
+<a href="http://ireland.aprs2.net/xastir/IrelandMaps/IrelandSE1600x2000.geo">geo</a> and 
+<a href="http://ireland.aprs2.net/xastir/IrelandMaps/IrelandSE1600x2000.inf">inf</a> files.
+</p>
+
+<h2>OpenStreetMap</h2>
+<a href="http://www.ei7ig.org/xastir/dbfawk/">Here</a> are some .dbfawk files, for 
+<a href="http://www.xastir.org/">Xastir</a>. They are a work-in-progress. A company in Germany called 
+<a href="http://www.geofabrik.de/">GEOFABRIK</a> have converted <a href="http://www.openstreetmap.org">OpenStreetMap</a> to shapefile format and makes them 
+available <a href="http://download.geofabrik.de/osm/">here</a>
+(thanks to Carl, VK1KCM for the assistance and also the heads up).
+
+<h3>APRS Hardware</h3>
+
+I really like the <a href="https://www.argentdata.com/catalog/product_info.php?cPath=22&products_id=73">Tracker2</a>, as it is tidy, (the prototypes were relatively easy to construct) and is very flexible being usable as 
+a tracker, digipeater and <a href="http://www.ka9q.net/papers/kiss.html">KISS</a> tnc similtaneously. <A href="http://www.aren.ie">AREN</a> has used APRS as a tactical communications tool on several events both in the hills and on the roads (<a href="http://http://www.theseankellytour.com/">Sean Kelly Tour</a>
+
+
+Mobile, I use a <a href="http://www.kenwood.eu/products/comm/radio_amateur/fm_mobile/TM-D710E/">Kenwood TM-D710E</a>
+(what a great radio!) along with my venerable <a href="http://www8.garmin.com/products/gps5/spec.html">Garmin GPS V</a>
+</body></html>

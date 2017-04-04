@@ -1,0 +1,185 @@
+<html>
+<head>
+<title>Receive only Satellite Ground Station</title>
+</head>
+<body bgcolor="#ffffff" link="#0000ff" vlink="#800080">
+<p><font size="-2"> Last updated: 20130710</font></p>
+
+<h1>Receive only Satellite Ground Station</h1>
+<p>
+Even before PCSAT2 <a href="http://web.usna.navy.mil/%7Ebruninga/pcsat2.html">[1]</a> was
+deployed, radio amateurs  were invited to help with reception of PCSAT2 Telemetry 
+along with solar cell data<a href="http://web.usna.navy.mil/%7Ebruninga/pec/pc2ops.html">[2]</a>.
+I attempted this initially back in August 2005</a>.
+</p>
+<p>
+
+I forgot about it for a while until late September when, Andrew Rich,
+VK4TEC, posted
+a <a href="http://ei7ig.org/vk4tec.txt">script</a> to the amsat-bb list. And a follow on
+script he put on his website <a href="http://www.tech-software.net/">[3]</a> . Showing basic doppler corrections for his
+Kenwood TM-D700.  That started me thinking.
+ 
+<p>
+Firstly, I already had a Linux server running 24/7 so I could use that for receiving and decoding 
+data, secondly I had a radio sitting idle while I was in work or asleep every day.
+So why not set the equipment up to work autonomously while I was not at the
+controls.
+</p>
+
+<p>
+My own radio is a Yaesu<a href="http://www.yaesu.com/">[4]</a> FT-847 which
+is computer controllable via its CAT port.  I had used Hamlib<a href="http://hamlib.sourceforge.net/">[5]</a> from a previous project, to control an Icom PCR 1000<a href="http://www.icomamerica.com/products/receivers/pcr1000/">[3]</a>. 
+Sure enough, it supported the FT-847, so I installed it.  
+</p>
+
+<h3>Satellite Tracking</h3>
+<p>
+Andrew's Script used Predict<a href="http://www.qsl.net/kd2bd/predict.html">[6]</a> to 
+supply the doppler correction factor required, so I downloaded, compiled and 
+installed Predict. </p>
+
+<p>
+As I wished to run the tracking software as a 'service' I chose to run it on an unused tty.  After
+some trial and error I managed to get it working by modifying the /etc/event.d/tty6 file to read
+<p><code>
+##/etc/event.d/tty6 <br>
+# tty6 - getty<br>
+#<br>
+# This service maintains a getty on tty6 from the point the system is<br>
+# started until it is shut down again.<br>
+<br>
+start on runlevel-2<br>
+start on runlevel-3<br>
+stop on runlevel-4<br>
+stop on runlevel-5<br>
+<br>
+stop on shutdown<br>
+<br>
+respawn /usr/local/bin/run_predict<br>
+</code>
+</p>
+<p>
+And the run_predict script contains
+</p>
+<p>
+<code>
+##run_predict<br>
+/bin/su - predict -s /bin/bash -c "/usr/bin/predict -s &lt; /dev/tty6 &gt; /dev/tty6 "
+
+</code>
+</p>
+<p>
+I created a specific <i>Predict</i> user rather than allowing the program
+to run as <i>root</i>.  Allowing programs to un-necessarily run as root is
+frowned upon and generally considered bad practice. </p>
+
+<p>
+Now that we have a Predict server running, it needs to be kept up to date.  Inside in the 'clients' subdirectory is a directory with a name of kep_reload. The 'README' file therein says:
+</p>
+<p>
+<p>
+"kep_reload" is a simple utility that forces an immediate reload
+of PREDICT's Keplerian database through a socket connection while
+PREDICT is running in server mode.  It is especially useful in
+environments where PREDICT runs continuously, and periodic Keplerian
+element updates are made outside of PREDICT, such as through scripts
+run through a crontab.</p>
+<p>
+The "kepupdate" script found in this directory is an example of a
+Keplerian element update script that can be run on an automated
+basis through a crontab.  It is designed to be placed in your
+home directory under a subdirectory called "cronjobs".  It downloads
+Keplerian orbital data from www.celestrak.com using the HTTP protocol.
+(The "wget" utility, available from the Free Software Foundation, is
+required, and is included in many Linux distrubutions.)
+</p>
+<p>
+Type crontab -e to edit your crontab.  Simply add the following entry:
+</p>
+<code>
+        0 8 * * * kepupdate
+</code>
+
+<pPand your orbital database will update each morning at 8:00 AM
+(provided you have a network connection at that time).
+</p>
+</quote>
+
+</p>
+
+<p>
+Perfect for what I needed.  So following the instructions I now had a satellite tracking engine that was automatically kept up-to-date.
+
+<h3>Radio Control</h3>
+Basically I used the Hamlib <a href="http://sourceforge.net/apps/mediawiki/hamlib/index.php?title=Main_Page:">Hamlib</a>  library that comes with the distribution. Along with a modified <a href="https://github.com/jpronans/digisats-beacon">[7]</a> version of Andrews original script.
+
+<h3>Radio Modem</h3>
+I used the soundmodem <a href="http://www.baycom.org/~tom/ham/soundmodem/">[8]</a> version that was available on the distribution.
+At the moment I'm using Ubuntu 8.04.3 LTS. <a href="http://www.ubuntu.com">[9]</a>
+
+My configuration looks like this:
+<p>
+<code>
+&lt;?xml version="1.0"?&gt;<br>
+&lt;modem&gt;<br>
+  &lt;configuration name="test"&gt;<br>
+    &lt;chaccess txdelay="200" slottime="100" ppersist="64" fulldup="1" txtail="20"/&gt;<br>
+    &lt;audio type="soundcard" device="/dev/dsp1" halfdup="1" capturechannelmode="Left"/&gt;<br>
+    &lt;ptt file="none" hamlib_model="" hamlib_params=""/&gt;<br>
+    &lt;channel name="Channel 0"&gt;<br>
+      &lt;mod mode="fsk" bps="9600" f0="1200" f1="2200" diffenc="1" filter="df9ic/g3ruh"/&gt;<br>
+      &lt;demod mode="fsk" bps="9600" filter="rootraisedcosine"/&gt;<br>
+      &lt;pkt mode="MKISS" ifname="sm0" hwaddr="EI7IG-3" ip="10.0.0.1" netmask="255.255.255.0" broadcast="10.0.0.255"/&gt;<br>
+    &lt;/channel&gt;<br>
+    &lt;channel name="Channel 1"&gt;<br>
+      &lt;mod mode="afsk" bps="1200" f0="1200" f1="2200" diffenc="1"/&gt;<br>
+      &lt;demod mode="afsk" bps="1200" f0="1200" f1="2200" diffdec="1"/&gt;<br>
+      &lt;pkt mode="MKISS" ifname="sm1" hwaddr="EI7IG-4" ip="10.0.0.1" netmask="255.255.255.0" broadcast="10.0.0.255"/&gt;<br>
+    &lt;/channel&gt;<br>
+  &lt;/configuration&gt;<br>
+&lt;/modem&gt;<br>
+</code>
+</p>
+<p>
+It is receive only, so I'm not using any PTT line.  Also you can see that I'm using /dev/dsp1.  The second soundcard in the computer.
+To bring up the soundmodem, I open a terminal and run (as root) soundmodem -v 9. Immediately, some multicast packets get sent
+to the port so I issue the following commands</p>
+<code>
+ifconfig sm0 -multicast<br>
+ifconfig sm1 -multicast<br>
+</code>
+
+<h3>AX.25 Configuration</h3>
+<code>
+# /etc/ax25/axports<br>
+#<br>
+# The format of this file is:<br>
+#<br>
+# name callsign speed paclen window description<br>
+#<br>
+9k6     EI7IG-3         9600    128     1       9k6 port<br>
+1k2     EI7IG-4         1200    128     1       1k2 port<br>
+1200    EI7IG-1         57600   255     7       4m Winlink Port<br>
+tmd7    EI7IG-2         57600   255     7       TM-D710 APRS<br>
+</code>
+<p>
+That is pretty much all there is to it. I use Xastir<a href="http://www.xastir.org">[10]</a> as a general 
+APRS program and it will also I-gate most Satellite traffic. Using an Omnidirectional Vertical antenna, I regularly <a href="http://shack.ei7ig.org/listen-logs/">receive</a> AX.25 data from the International Space Station.
+</p>
+
+<p></p>
+[1] <a href="http://web.usna.navy.mil/%7Ebruninga/pcsat2.html">http://web.usna.navy.mil/bruninga/pcsat2.html</a> PCSAT2 Design Page<br>
+[2] <a href="http://web.usna.navy.mil/%7Ebruninga/pec/pc2ops.html">http://web.usna.navy.mil/bruninga/pec/pc2ops.html</a> PCSAT2 Operations Webpage<br>
+[3] <a href="http://www.tech-software.net/">www.tech-software.net</a> VK4TEC's Homepage<br>
+[4] <a href="http://www.yaesu.com/">http://www.yaesu.com</a> Yaesu<br>
+[5] <a href="http://hamlib.sourceforge.net/">http://hamlib.sourceforge.net</a> Ham Radio Control Libraries<br>
+[6] <a href="http://www.qsl.net/kd2bd/predict.html">http://www.qsl.net/kd2bd/predict.html</a> Predict Satellite Tracking Software <br>
+[7] <a href="https://github.com/jpronans/digisats-beacon">https://github.com/jpronans/digisats-beacon</a>digisats-beacon.pl<br>
+[8] <a href="http://www.baycom.org/~tom/ham/soundmodem/">http://www.baycom.org/~tom/ham/soundmodem/</a> Multiplatform Soundcard Packet Modem<br>
+[9] <a href="http://www.ubuntu.com">http://www.ubuntu.com</a> Ubuntu Linux<br>
+[10]<a href="http://www.xastir.org">http://www.xastir.org</a> Xastir<br>
+[11] <a href="https://goby.nrl.navy.mil/ANDE/Main.html">https://goby.nrl.navy.mil/ANDE/Main.html</a> Atmospheric Neutral Density Experiment<br>
+[12] <a href="http://www.findu.com/cgi-bin/ariss/index.cgi">http://www.findu.com/cgi-bin/ariss/index.cgi</a> Amateur Radio Stations heard via ISS <br>
+[13] <a href="http://www.findu.com/cgi-bin/raw.cgi?call=pollux-1">http://www.findu.com/cgi-bin/raw.cgi?call=pollux-1</a> Raw Data from POLLUX <br>
+</body></html>
