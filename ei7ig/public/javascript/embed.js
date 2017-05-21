@@ -24,7 +24,7 @@ if (window.he_show_others === undefined)
 
 document.write(
 	'<iframe name="aprsfi_map" id="aprsfi_map"'
-	+ ' src="http://aprs.fi/embedded?'
+	+ ' src="https://aprs.fi/embedded?'
 	+ 'width=' + he_width + '&amp;height=' + he_height
 	+ '&amp;z=' + he_zoom
 	+ ((window.he_track === undefined) ? '' : '&amp;he_track=' + he_track)
