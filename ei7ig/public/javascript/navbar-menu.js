@@ -7,7 +7,6 @@ $(function () {
       "<a class='ui item' href='aprs.html'>APRS</a>" +
       "<a class='ui item' href='sat.html'>Satellite</a>" +
       "<a class='ui item' href='dmr.html'>DMR</a>" +
-      "<a class='ui item' target="_blank" href='http://aren.ie'>AREN</a>" +
       "<a class='ui item' href='data.html'>WX Data</a>" +
       "<a class='ui item' href='logs.html'>Log</a>" +
       "<a class='ui item' href='links.html'>Links</a>" +
