@@ -12,9 +12,6 @@
 	  	<!-- navigation menu template -->
 	  	<div class="navbar-menu-placeholder"></div>
 	  	<script src="public/javascript/navbar-menu.js"></script>
-    <section class="ui raised segment">
-      Purchased a Revevis RT8... will add notes as I learn more.
-    </section>
     <section>
     <h1>Proposed Talkgroups</h1>
     <ul>
@@ -37,7 +34,7 @@
     <li><a href="http://www.dmr-marc.net/media/Amateur_Radio_Guide_to_DMR_Rev_I_20150510.pdf">Amateur Guide to DMR</a> from 2015. No mention of Brandmeister</li>
     <li><a href="https://www.youtube.com/watch?v=sDBosrVDrOA">Programming the MD-390/RT8</a> (Youtube)</li>
     <li><a href="http://brandmeisternetwork.blogspot.ie/2016/12/brandmeister-reflectors-talkgroups-list.html">On Brandmeister reflectors</a></li>
-    <li><a href="public/files/codeplug-ei7ig.rdt">My current codeplug</a> (last uploaded 2017-07-19)</li>
+    <li><a href="public/files/codeplug-ei7ig.rdt">My current codeplug</a> for my Retevis RT8 (last uploaded 2017-07-19)</li>
     </ul>
     </section>
     <section>
@@ -48,7 +45,59 @@
     </ul>
     I have not used either of the above, so comments as to how good they are, are welcome.
     </section>
+    <section class="ui raised segment">
+      <h1>Decoding the RT8 GPS Data</h1>
+      <p>
+      These notes are largely for my own benefit. My motiviation was pretty simple.  I had purchased the Retevis RT8 and, as I am interested in the use of APRS and other tracking technologies for Public Service (<a href="http://www.aren.ie">AREN</a>), I simply wanted to get the GPS function working.
+      </p>
+      <p>
+      So with that in mind I started by turning on debugging in MMDVM and see what I could figure out. I posted a <a href="https://groups.yahoo.com/neo/groups/mmdvm/conversations/messages/13009">question</a> to the MMDVM group outlining my initial findings. 
+      </p>
+      <p>
+      From that, I had some discussions with Jonathan Naylor, G4KLX regarding the UDT Header, and we determined that MMDVM was dropping a frame at the end of each transmission when the GPS was enabled (<a href="https://github.com/g4klx/MMDVMHost/commit/68b8ba031fdc50a5c2603275c892fe6ce6e9ce6f">the fix</a>).
+      </p>
+      <p>
+      Then I quickly came across <a href="https://groups.google.com/forum/#!topic/md380tools/GDm-aOuPV2g">this</a> thread where Carlos, EB4FBZ had done some work decoding the GPS data from the MD-390.
+      </p>
+      <pre>
+        Hello Michael, these are my notes in 0 based indexing:
 
+        bit 0: Not used
+        bit 1 : 1=N, 0=S
+        bit 2 : 1=E, 0=W
+        bit 3 : Fix
+        bits(4:10): Speed in knots/2
+        bits(11:17): Latitude. Degrees
+        bits(18:23): Latitude. Minutes integer part
+        bits(24:37): Latitude. Minutes decimal part
+        bits(38:45): Longitude. Degrees
+        bits(46:51): Longitude. Minutes integer part
+        bits(52:65): Longitude. Minutes decimal part
+        bits(66:79): Altitude in meters, only least 8bits used (bug)
+        bits(80:95): Garbage?
+
+        This is working on BM network since 2 weeks ago, i'm pretty sure it's correct. I injected simulated NMEA frames into the radio instead of the real GPS ones and tested each value.
+
+        Best regards,
+        Carlos EB4FBZ
+      </pre>
+      <p>
+      So with this information I set about figuring out the data stream. This was a pretty much done by brute force i.e. lots of debugging statements 
+      </p>
+      <p>
+      ....tbc
+      </p>
+      <!-- <pre>
+      DMR, Unified Data Transport Header
+D: 2017-08-03 22:07:02.089 0000:  80 05 00 0A A2 29 81 32 00 1B 3A 36                *.....).2..:6*
+M: 2017-08-03 22:07:02.090 DMR Slot 2, received RF data header from EI7IG to TG 2722, 1 blocks
+M: 2017-08-03 22:07:02.147 DMR Slot 2, 1/2 RATE Data
+D: 2017-08-03 22:07:02.148 Invalid Checksum
+D: 2017-08-03 22:07:02.148 0000:  50 0D 09 98 00 1C 96 50 80 3F C7 B8                *P......P.?..*
+
+      </pre>
+      -->
+    </section>
 
   
 	</body>
