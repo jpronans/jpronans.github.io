@@ -46,7 +46,7 @@
     I have not used either of the above, so comments as to how good they are, are welcome.
     </section>
     <section class="ui raised segment">
-      <h1>Decoding the RT8 GPS Data</h1>
+      <h1 id="rt8">Extracting GPS Data from the Retevis RT8</h1>
       <p>
       These notes are largely for my own benefit. My motiviation was pretty simple.  I had purchased the Retevis RT8 and, as I am interested in the use of APRS and other tracking technologies for Public Service (<a href="http://www.aren.ie">AREN</a>), I simply wanted to get the GPS function working.
       </p>
@@ -57,7 +57,7 @@
       From that, I had some discussions with Jonathan Naylor, G4KLX regarding the UDT Header, and we determined that MMDVM was dropping a frame at the end of each transmission when the GPS was enabled (<a href="https://github.com/g4klx/MMDVMHost/commit/68b8ba031fdc50a5c2603275c892fe6ce6e9ce6f">the fix</a>).
       </p>
       <p>
-      Then I quickly came across <a href="https://groups.google.com/forum/#!topic/md380tools/GDm-aOuPV2g">this</a> thread where Carlos, EB4FBZ had done some work decoding the GPS data from the MD-390.
+      I also came across <a href="https://groups.google.com/forum/#!topic/md380tools/GDm-aOuPV2g">this</a> thread where Carlos, EB4FBZ had done some work decoding the GPS data from the MD-390.
       </p>
       <pre>
         Hello Michael, these are my notes in 0 based indexing:
@@ -82,21 +82,125 @@
         Carlos EB4FBZ
       </pre>
       <p>
-      So with this information I set about figuring out the data stream. This was a pretty much done by brute force i.e. lots of debugging statements 
+      So with this information I set about figuring out the data stream. This was a pretty much done by brute force i.e. lots of debugging statements.
       </p>
       <p>
-      ....tbc
+      Firstly I set about figuring out what my RT8 was sending this was the first packet I saw:
       </p>
-      <!-- <pre>
-      DMR, Unified Data Transport Header
-D: 2017-08-03 22:07:02.089 0000:  80 05 00 0A A2 29 81 32 00 1B 3A 36                *.....).2..:6*
-M: 2017-08-03 22:07:02.090 DMR Slot 2, received RF data header from EI7IG to TG 2722, 1 blocks
-M: 2017-08-03 22:07:02.147 DMR Slot 2, 1/2 RATE Data
-D: 2017-08-03 22:07:02.148 Invalid Checksum
-D: 2017-08-03 22:07:02.148 0000:  50 0D 09 98 00 1C 96 50 80 3F C7 B8                *P......P.?..*
+      <pre>
+      00 05 04 2A 67 29 81 32 00 1B 42 A8
+      </pre>
+      <p>
+      Breaking the bytes down further (from left to right) into individual bits (see <a href="http://www.etsi.org/deliver/etsi_ts/102300_102399/10236101/02.02.01_60/ts_10236101v020201p.pdf">ETSI TS 102 361-1 - V2.2.1</a> Page 79), this is what you get:
+      <pre>
+      00 = 0000 0000  
+      Bit  7   = Individial (0) or Talkgroup (1) is the destination  
+           6   = Response Requested (1) 
+           5   = 0
+           4   = 0
+      Bits 3-0 = 0000 = UDT Data transport Format is Binary (see <a href="http://www.etsi.org/deliver/etsi_ts/102300_102399/10236101/02.02.01_60/ts_10236101v020201p.pdf">ETSI TS 102 361-1 - V2.2.1 Page 109</a>)
+
+      05 = 0000 0101
+      Bits 7-4 = 0000 = UDT Service Access Point ID (see <a href="http://www.etsi.org/deliver/etsi_ts/102300_102399/10236101/02.02.01_60/ts_10236101v020201p.pdf">ETSI TS 102 361-1 - V2.2.1 Page 103</a>)
+      Bist 3-0 = 0101 = NMEA location coded (see <a href="http://www.etsi.org/deliver/etsi_ts/102300_102399/10236101/02.02.01_60/ts_10236101v020201p.pdf">ETSI TS 102 361-1 - V2.2.1 Page 109</a>)
+
+
+      04 2A 67 = 0000 0100 0020 1100 0101 0111 = Destination Logical Link ID = 272999 (Destination DMR ID set in my Codeplug)
+
+      29 81 32 = 0010 1001 1000 0001 0011 0010 = Source Logical Link ID = 2720050 (My DMR ID)
+
+      00 = 0000 0000
+      Bits 7-3 = 00000 = Pad Nibble
+      Bit    2 = 0     = Reserved
+      Bits 1-0 = 00    = 1 Appended Data UDT Blocks 
+      
+      1B = 0001 1011   
+      Bit    7 = 0      = Supplementary Flag
+             6 = 0      = Protect Flag (Reserved for Future Use)
+      Bits 5-0 = 011011 = UDT Opcode = Prescribed Value
+
+      42 A8 = Header CRC which I really wasn't concerned about.   
+      </pre>
+
+      Noticing that '00' meant '1 Appended Data UDT Block' was the first useful thing I found.
+
+      So, now to deal with the appended data frame. It turns out this is in the Short NMEA format (see <a href="http://www.etsi.org/deliver/etsi_ts/102300_102399/10236104/01.07.01_60/ts_10236104v010701p.pdf">ETSI TS 102-361-4 v1.7.1</a>, page 262).  
+      <pre>
+      50 0D 09 98 00 1C 96 50 80 3F C7 B8
+      </pre>
+      <pre>
+      50 = 0101 0000 
+      Bit    7 = 0 = Encrypted (1), not encrypted (0)         = Not encrypted
+             6 = 1 = Latitude Direction, North(1), South(0)   = North
+             5 = 0 = Longitude Direction, East(1), West(0)    = West
+             4 = 1 = GPS Quality Indicator Fix (1), No Fix(0) = GPS Fix
+      Bits 3-0 = 0000 = Top 4 bits of the Speed in knots
+      
+      0D = 0000 1101
+      Bits 7-5 = 000   = Bottom 3 bits of the Speed in knots (127 = Greater than 126 knots)
+      Bits 4-0 = 01101 = Top 5 bits of Latitude Degrees 
+
+      Speed = 0000000 = 0 Knots
+
+      The notes from Carlos, EB4FBZ suggest that this is knots/2. I haven't had the opportunity to test this yet.
+      
+      09 = 0000 1001 
+      Bits 7-6 = 00     = Bottom 2 bits of Latitude Degrees (0-89)
+      Bits 5-0 = 001001 = Latitude Minutes (00-59) 
+
+      Latitude Degrees = 0110100 = 52 Degrees
+      Latitude Minutes = 001001  = 9 Minutes
+      
+      98 = 1001 1000     = Top 8 bits of Latitude Fractions of minutes 
+
+      00 = 0000 0000 
+      Bits 7-2 = 000000  = Bottom 6 bits of Latitude Fractions of minutes (0000-9999)
+      Bits 1=0 = 00      = Top two bits of Longitude Degrees
+
+      Latitude fractions of minutes = 10 0110 0000 0000 = 9728
+
+      1C = 0001 1100
+      Bits 7-2 = 000111  = Bottom 6 bits of Longitude Degrees (000-179)
+      bits 1-0 = 00      = Top two bits of Longitude Minutes
+      
+      Longitude Degrees = 0000 0111 = 7
+
+      96 = 1001 0110 
+      Bits 7-4 = 1001 = Bottom 4 bits of Longitude Minutes (00-59)
+      Bits 3-0 = 0110 = Top 4 bits of Longitude Fractions of minutes 
+
+      Longitude Minutes = 001001 = 9
+
+      50 = 0101 0000 = Bits 10-3 of Longitude Fractions of minutes
 
       </pre>
-      -->
+      <p>
+      At this point the Radio appears to diverge from the specifications as per the notes from Carlos EB4FBZ and I'm taking the next 14 bits as Altitude in Meters which appears to be correct so far.  As of writing I have not tested what happens when the altitude is negative.
+      </p>
+      <pre>
+      80 = 1000 0000 
+      Bits 7-6 = 10 = Bottom two bits of Longitude Fractions of Minutes (0000-9999)
+      
+      Bits 5-0 = 00000 = Top 6 bits of Altitude
+      Longitude fractions of minutes = 0110 0101 0000 10 = 6466
+
+      3F = 0011 1111 = Bottom 8 bits of Altitude   
+
+      Altitude = 00 0000 0011 1111 = 63 Meters
+      </pre>
+      <p>
+      So fully decoded that gives:
+      <ul>
+      <li>Speed = 0</li>
+      <li>52 9 9728 = 52.1662N</li> 
+      <li>7 9 6446 = 7.1607W</li> 
+      <li>Altitude = 63 Meters</li>
+      </ul>
+
+      Thats about all there is too it! I'm not really in a position to test 'speed' yet so I'm not pushing that to the APRS-IS yet, once I'm confident that it is correct. I will update the code. 
+
+      Finally, If anyone had a loaner of a different manufacturer's DMR radio, I could have a look at decoding those as well.
+      </p>
     </section>
 
   
