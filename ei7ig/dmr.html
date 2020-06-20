@@ -12,33 +12,114 @@
 	  	<!-- navigation menu template -->
 	  	<div class="navbar-menu-placeholder"></div>
 	  	<script src="public/javascript/navbar-menu.js"></script>
+      <font size="-2"> Last updated: 20200620</font></p>
     <section>
-    <h1>Proposed Talkgroups</h1>
+      <h1>Digital Mobile Radio</h1>
+    <h2>Ireland Proposed Talkgroups</h2>
+    <p> The first thing to remember is that timeslot usage really only matters to repeaters not hotspots or simplex gateways. Broadly, the philisophy is keep local traffic on <b>Slot 2</b>, everyting else on <b>Slot 1</b>. This rule of thumb should allow initial contact to be establised on Talkgroup 2722 or Talkgroup 8, almost all of the time. Sure, if <b>Slot 1</b> is busy, then feel free to stay on <b>Slot 2</b>:</p>
+    <p>So here is a list of some Talkgroups specific to Ireland on Brandmeister:</p>
+
     <ul>
-    <li>2722  - Ireland Calling Channel (Also accessible via reflector 4780 on BrandMeister)</li>
-    <li>2723   - Ireland Chat</li>
-    <li>2724   - Ireland Wires Bridge</li>
-    <li>27240  - Southern Ireland Repeater Network (Testing)</li>
-    <li>27246  - XLX 922 E</li>
-    <li>27247  - XLX 925 D</li>
-    <li>27248  - XLX 925 C</li>
-    <li>29248  - XLX 925 B</li>
-    <li>2729   - AREN Logistics</li>
-    <li>29291  - AREN Tac 1</li>
-    <li>272997 - Parrot/Echo</li>
+    <li>7 (Slot1) Provincal Cluster</li>    
+    <li>8 (Slot2)- Repeater Group Cluster</li> 
+    <li>9 (S1 & S2) - Local access</li>
+    <li>91 (S1) - Worldwide</li>
+    <li>2722 (S2) - Ireland Calling Channel (Also accessible via reflector 4780 on BrandMeister)</li>
+    <li>2723 (S1) - Ireland Chat</li>
+    <li>2724 (S1) - Ireland Wires Bridge/XLX353</li>
+    <li>27240 (S1) - Southern Ireland Analogue Repeater Network</li>
+    <li>27246 (S1) - XLX 922 E</li>
+    <li>27247 (S1) - XLX 925 C</li>
+    <li>27248 (S1) - XLX 925 F</li>
+    <li>27249 (S1) - XLX 925 B</li>
+    <li>27250 (see example below) - Connacht - (EI7AKR, EI7LRD, EI7RHD, EJ7IBD currently active)</li>
+    <li>27251 (see example below) - Leinster - (EI7MLD currently active)</li>
+    <li>27252 (see example below) - Munster - (EI7CDD, EI7WCD currently active)</li>
+    <li>27253 (see example below) - Ulster - (GB7CX, GB8KA currently active)</li>
+    <li>27254 (see example below) - Southern Ireland Repeater Group (EI7CDD, EI7WCD, EI7MLD currently active)</li>
+    <li>27255 (see example below) - Galway Digital Radio Group (EI7AKR, EI7LRD, EI7RHD, EJ7IBD currently active)</li>
+    <li>27291 (S1 Alternate & S2 Primary) - AREN Tac 1</li>
+    <li>272907 (S1) - IRL JOTA</li>
+    <li>272997 (S1) - Parrot/Echo</li>
     <li>272999 - APRS</li>
-    <li>9990   - Parrot/Echo</li>
+    <li>9990 (S1)  - Parrot/Echo</li>
+    </ul>
+   
+
+    <h2>Timeslots</h2>
+    <h3>Sample programming for EI7CDD and EI7WCD (Both in Waterford)</h3>
+    In Keeping with that philosophy, let me given an example. I am based in Waterford, Munster. Here is suggested programming of talkgroups using <b>Slot 1</b> of the EI7CDD and EI7WCD repeaters. Bearing in mind that these two repeaters are in the Munster (TG7) and Southern Ireland Repeater Group (TG8) Clusters 
+    <ul>
+    <li>7 - Provincal Cluster (Automatically set to Munster in this case)</li>
+    <li>9 - Local access</li>
+    <li>91 - Worldwide</li>
+    <li>2723 - Ireland Chat</li>
+    <li>2724 - Ireland WIRES Bridge/XLX353</li>
+    <li>27240 - Southern Ireland Analogue Repeater Network</li>
+    <li>27250 - Connacht</li>
+    <li>27251 - Leinster</li>
+    <li>27253 - Ulster</li>
+    <li>25255 - Galway Digital Radio Group</li>
+    <li>292907</li>
     </ul>
 
-    <h2>Talkgroups</h2>
-    My understanding so far is that on the Brandmeister Network, is that Talkgroups can be used on either slot. However, the current plan is to adopt the Norwegian model. Local/National on Slot 2, Reflectors/International on Slot 1. With good practice to move to slot 1 for long chats to keep slot 2 clear for local/calling traffic <a href="https://wiki.brandmeister.network/index.php/Ireland">BrandMeister Ireland</a>.
+    and in <b>Slot 2</b>
+    <ul>
+    <li>8 - Repeater Group Cluster (Automatically set to Southern Ireland Repeater Group in this case)</li>
+    <li>9 - Local access</li>
+    <li>2722 - Ireland Calling Channel</li>
+    </ul>
+  
+    <h3>Sample programming for EI7MLD (Mt. Leinster, Co. Carlow)</h3>
+    Now, bear in mind that this repeater is in the Leinster (TG7) and Southern Ireland Repeater Group (TG8) Clusters. <b>Slot 1</b>: 
+    <ul>
+    <li>7 - Provincal Cluster (Automatically set to Leinster in this case)</li>
+    <li>9 - Local access</li>
+    <li>2723 - Ireland Chat</li>
+    <li>2724 - Ireland WIRES Bridge/XLX353</li>
+    <li>27240 - Southern Ireland Repeater Network</li>
+    <li>27250 - Connacht</li>
+    <li>27252 - Munster</li>
+    <li>27253 - Ulster</li>
+    <li>25255 - Galway Digital Radio Group</li>
+    <li>292907</li>
+    </ul>
+
+    and in <b>Slot 2</b>:
+    <ul>
+    <li>8 - Repeater Group Cluster (Automaticall set to Southern Ireland Repeater Group in this case)</li>
+    <li>9 - Local access</li>
+    <li>2722 - Ireland Calling Channel</li>
+    </ul>
+
+    <h3>Sample programming for EI7AKR (Abbeyknockmoy, Co. Galway)</h3>
+    Now, consider a different area. Bear in mind that this repeater is in the Connacht (TG7) and Galway Digital Radio Group (TG8) Clusters. <b>Slot 1</b>: 
+    <ul>
+    <li>7 - Provincal Cluster (Automatically set to Connacht in this case)</li>
+    <li>9 - Local access</li>
+    <li>2723 - Ireland Chat</li>
+    <li>2724 - Ireland WIRES Bridge/XLX353</li>
+    <li>27240 - Southern Ireland Repeater Network</li>
+    <li>27251 - Leinster</li>
+    <li>27252 - Munster</li>
+    <li>27253 - Ulster</li>
+    <li>25254 - Southern Ireland Repeater Group</li>
+    <li>292907</li>
+    </ul>
+
+    and in <b>Slot 2</b>
+    <ul>
+    <li>8 - Repeater Group Cluster (Galway Digital Radio Group in this case)</li>
+    <li>9 - Local access</li>
+    <li>2722 - Ireland Calling Channel</li>
+    </ul>
 
     
     <h2>Reflectors</h2>
     Reflectors are only repeaters that can be accessed by dynamically dialling them. Limited to only be used on slot 2 (Brandmeister).
 
     <h2>Presentation</h2>
-    In 2018 I gave a presentation at the <a href="http://www.irts.ie">IRTS</a> AGM and also at a recent <a href="http://www.searg.ie">SEARG</a> club meeting on DMR and Brandmeister in Ireland. It is now available <a href="./dmr_presentation/index.html">here.</a>
+    <p>In 2018 I gave a presentation at the <a href="http://www.irts.ie">IRTS</a> AGM and also at a recent <a href="http://www.searg.ie">SEARG</a> club meeting on DMR and Brandmeister in Ireland. It is available <a href="./dmr_presentation/index.html">here.</a></p>
 
     <h2>Useful Links</h2>
     <ul>
@@ -52,16 +133,16 @@
     <section>
     <h3>Codeplug Editors</h3>
     <ul>
-    <li><a href="http://www.miklor.com/MD380/380-CPEditor.php>">Mikor Codeplug Editor</a> 
-    <li><a href="http://g7rvh.com/tyt-md-380/codeplug-editor/">G7RVH Codeplug Editor</a> 
+    <li><a href="http://https://www.miklor.com/DMR/DMR-380-CPEditor.php>">Mikor Codeplug Editor</a></li>
+    <li><a href="https://www.farnsworth.org/dale/codeplug/editcp/">Editcp</a></li>
     </ul>
-    I have not used either of the above, so comments as to how good they are, are welcome.  
+    <p>Apart from the Manufacturers own programming software. The only other tool I have used are <a href="https://www.farnsworth.org/dale/codeplug/editcp/">Editcp</a> for programming and <a href="https://github.com/travisgoodspeed/md380tools">md380tools</a> for firmware updates.</p>   
     </section>
     <section>
     <h2>Radios</h2>
       <p>
-        I currently have the Retevis <a href="http://www.retevis.com/rt8/">RT8</a> and a <a href="https://www.motorolasolutions.com/en_xu/products/mototrbo/dm4000-series-mobile-radios/dm4600-dm4601.html#tabproductinfo">Motorola DM4600</a>.
-        Initial impressions are that I like the DM4600 and the roaming function appears to work quite well.
+        I currently have the Retevis <a href="http://www.retevis.com/rt8/">RT8</a>an <a href="https://www.retevis.com/ailunce-hd1-dual-band-dmr-digital-radio">Ailunce HD1</a> and  <a href="https://www.motorolasolutions.com/en_xu/products/mototrbo/dm4000-series-mobile-radios/dm4600-dm4601.html#tabproductinfo">Motorola DM4600</a>.
+        I'm happy to share my own codeplugs if asked. Contact details on <a href="https://www.hamqth.com/">HamQTH</a> or <a href="www.qrz.com">QRZ</a>.
       </p>
     </section>
   
