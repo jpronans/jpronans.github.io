@@ -40,9 +40,9 @@
     <li>27255 (see example below) - Galway Digital Radio Group (EI7AKR, EI7LRD, EI7RHD, EJ7IBD currently active)</li>
     <li>27291 (S1 Alternate & S2 Primary) - AREN Tac 1</li>
     <li>272907 (S1) - IRL JOTA</li>
-    <li>272997 (S1) - Parrot/Echo</li>
+    <li>272997 (S1&S2) - Parrot/Echo</li>
     <li>272999 - APRS</li>
-    <li>9990 (S1)  - Parrot/Echo</li>
+    <li>9990 - Parrot/Echo</li>
     </ul>
    
 
@@ -123,11 +123,21 @@
 
     <h2>Useful Links</h2>
     <ul>
-    <li><a href="http://www.dmr-marc.net/media/Amateur_Radio_Guide_to_DMR_Rev_I_20150510.pdf">Amateur Guide to DMR</a> from 2015. No mention of Brandmeister</li>
+    <li><a href="https://sirnrepeaters.blogspot.ie/">Southern Ireland Repeater Group</a>
+    <li><a href="https://register.ham-digital.org/">DMR ID Registration</a>
+    <li><a href="https://www.radioid.net/database/search#!">DMR ID Search</a>
+    <li><a href="https://brandmeister.network/">Brandmeister</a></li>
+    <li><a href="https://wiki.brandmeister.network/index.php/Ireland">Ireland entry on BM Wiki</a>
+    <li><a href="https://brandmeister.network/?page=lh&jsonquery=%7B%22condition%22%3A%22AND%22%2C%22rules%22%3A%5B%7B%22id%22%3A%22Master%22%2C%22field%22%3A%22Master%22%2C%22type%22%3A%22string%22%2C%22input%22%3A%22text%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%222721%22%7D%5D%7D">Ireland Lastheard</a>
     <li><a href="https://www.youtube.com/watch?v=sDBosrVDrOA">Programming the MD-390/RT8</a> (Youtube)</li>
     <li><a href="http://brandmeisternetwork.blogspot.ie/2016/12/brandmeister-reflectors-talkgroups-list.html">On Brandmeister reflectors</a></li>
+    <li><a href="https://brandmeister.network/?page=login&returnurl=%2F%3Fpage%3Dselfcare">Brandmeister Selfcare</a>
+    <li><a href="http://brandmeister-uk.co.uk/">Brandmeister UK</a>
+    <li><a href="http://www.amateurradio.digital/wizard.php">Digital Contacts Wizard</a>
+
+    <li><a href="http://www.dmr-marc.net/media/Amateur_Radio_Guide_to_DMR_Rev_I_20150510.pdf">Amateur Guide to DMR</a> from 2015. No mention of Brandmeister</li>
     <li><a href="public/files/codeplug-ei7ig.rdt">My current example codeplug</a> for my Retevis RT8 (last uploaded 2019-10-14)</li>
-    <li><a href="http://www.royalsignals.org.uk/temp/DMR-APRS-Setup-Info.pdf">DM-4600 DMR/APRS Howto</a></li>
+    <li><a href="http://www.royalsignals.org.uk/temp/DMR-APRS-Setup-Info.pdf">Motorola DM4600 DMR/APRS Howto</a></li>
     </ul>
     </section>
     <section>
@@ -276,7 +286,7 @@
 
       </pre>
       <p>
-      At this point the Radio appears to diverge from the specifications as per the notes from Carlos EB4FBZ and I'm taking the next 14 bits as Altitude in Meters which appears to be correct so far.  As of writing I have not tested what happens when the altitude is negative.
+      At this point the Radio appears to diverge from the specifications as per the notes from Carlos EB4FBZ and I'm taking the next 14 bits as Altitude in Meters which appears to be correct so far.  I never tested what happens when the altitude is negative.
       </p>
       <pre>
       80 = 1000 0000 
@@ -298,11 +308,9 @@
       <li>Altitude = 63 Meters</li>
       </ul>
 
-      Thats about all there is too it! I'm not really in a position to test 'speed' yet so I'm not pushing that to the APRS-IS yet, once I'm confident that it is correct. I will update the code. 
+      Thats about all there was too it! Anyway, the point is moot as shortly after I figured this out, <a href="https://brandmeister.network">Brandmeister</a> added the support for the radio, so with the functionality now there. I didn't need to pursue it any further.
 
-      Finally, If anyone had a loaner of a different manufacturer's DMR radio, I could have a look at decoding those as well.
-
-      My code currently exists <a href="https://github.com/jpronans/DMRGateway">here</a> on github.  With regular git pulls to the GPS branch of the <a href="https://github.com/g4klx/DMRGateway">main</a> codebase.
+      The code still exists <a href="https://github.com/jpronans/DMRGateway">here</a> on github.
       </p>
     </section>
 
