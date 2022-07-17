@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>DMR and Brandmeister in Ireland</title>
+    <link rel="shortcut icon" href="./favicon.ico" />
+    <link rel="stylesheet" href="./dist/reset.css" />
+    <link rel="stylesheet" href="./dist/reveal.css" />
+    <link rel="stylesheet" href="./dist/theme/black.css" id="theme" />
+    <link rel="stylesheet" href="./css/highlight/zenburn.css" />
+
+
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section  data-markdown><script type="text/template">
+<!-- 1920x1080 is 16:9 -->
+<!-- 1600x900 is 16:9 -->
+<!-- JR's laptop is 1920x1200 -->
+
+
+# DMR and Brandmeister in Ireland 
+
+John Ronan, EI7IG 
+
+John McCarthy, EI8JA
+</script></section><section  data-markdown><script type="text/template">
+> "Any sufficiently advanced technology is indistinguishable from magic."
+
+Arthur C. Clarke, "Profiles of The Future", 1961 (Clarke's third law) English physicist & science fiction author (1917 - 2008)
+</script></section><section  data-markdown><script type="text/template">
+## Southern Ireland Repeater Group
+* Around since 2003 when two clubs got together with the interest of linking repeaters
+  * Exists in its current form since 2016
+  * Members and contributers are spread across most of the South of Ireland
+* Maintains repeater and APRS network in Southern Ireland, investigates new technologies
+* System currently consists of
+  * Seven voice repeaters
+  * Seven APRS digipeaters
+  * Two MMDVM Digital Repeaters
+* Contributions welcome
+  * https://sirnrepeaters.blogspot.ie
+</script></section><section ><section data-markdown><script type="text/template">
+## When did this Brandmeister thing start?
+</script></section><section data-markdown><script type="text/template">
+## Feb 2017
+* I became aware that EI8JA, EI3JE and EI5DD were experimenting with Digital Mobile Radio
+* Sounded to me like a server based in Ireland would be needed eventually
+* Spoke to EI5DD and asked if he would be happy for me to create a server
+  * "Yes please!" 
+</script></section><section data-markdown><script type="text/template">
+## April - June 2017
+* April 3rd, server installed.
+* In the meantime John Anderson, MI0AAZ/EI7KK, and Dave Randles, M0AUT/EI8HBB, worked on getting us an invitation into the BrandMeister (BM) network
+* May 12, 8:55 BM Server was brought online
+* June 21, after much effort on behalf of John Anderson, MI0AAZ, the Ireland server is listed in the BM Dashboard at:
+  * https://brandmeister.network/
+    * Normally this isn't done until >10 repeaters online
+</script></section><section data-markdown><script type="text/template">
+## July 2017 - Today
+* July 28 2017, EI7CDD UHF Repeater installed in West Waterford
+* Nov  12 2017, EI2DOD VHF Gateway online
+* Nov  13 2017, EI2GCD VHF Gateway online
+* Feb  17 2018, EI7WCD UHF Repeater installed in Tramore
+</script></section></section><section ><section data-markdown><script type="text/template">
+## What is Digital Mobile Radio (DMR) ?
+* a new standard that has been developed by ETSI defining digital standard for PMR 
+* i.e. anything that isn't a mobile phone
+* Increased spectral efficiency
+* New facilities
+  * Large area, IP backhaul
+  * Encryption
+  * Low bitrate data
+  * GPS position information
+* Meets existing 12.5kHz channel spacing requirements
+
+<aside class="notes"><p>ETSI = European Telecommunications Standards Institute, independent, not-for-profit standardisation organisation. 
+P = Professional, Personal, or Private Mobile Radio</p>
+</aside></script></section><section data-markdown><script type="text/template">
+## Three broad categories of users targeted
+</script></section><section data-markdown><script type="text/template">
+###  Domestic and short range industrial users 
+* typically need fast, convenient and low cost communications over a limited range
+* simple low power, low cost radios meet their needs
+</script></section><section data-markdown><script type="text/template">
+### Professional users - for which radio communications are critical 
+* These applications can be found in organisations that need to communicate with a mobile workforce 
+* Includes business sectors such as transportation, construction, manufacturing, energy and utilities 
+* The communications needs vary considerably
+  * over a restricted area
+  * across a variety of sites
+  * or over a much larger region
+
+</script></section><section data-markdown><script type="text/template">
+### Emergency services - for which radio communications are vital 
+* Needs to be highly reliabile
+* Needs also to be secure
+* Available over a wide area
+* Customised to the specific needs of the user 
+* These are expensive, but necessary requirements
+</script></section><section data-markdown><script type="text/template">
+## ETSI designed a system with three Tiers or levels 
+* Tier 1 - licence free form of digital radio communications system 
+  * Aims to fill the same slot that is addressed by PMR466
+* Tier 2 - requires licensed operation and it offers 
+  * higher power levels
+  * peer to peer operation
+  * repeater mode
+* Tier 3 - again requires a licence
+  * provides for trunked operation
+  * Cheaper to deploy than Tetra or P25
+  * Increased capacity and efficiency seen as a step up from MPT1327
+</script></section><section data-markdown><script type="text/template">
+### Defined under the standards
+* TR 102 398 - an introduction to Digital Mobile Radio technology
+* TS 102 362 parts 1 to 3 - Technical specs for the protocol, performance testing and test suites
+* TS 102 490 - defines the 'digital PMR' protocol
+* TR 102 335-1 - reference document for Tier 1 DMR
+* TR 102 335-2 - reference document for Tier 2 DMR
+</script></section><section data-markdown><script type="text/template">
+## So... whats this about timeslots?
+
+![image](images/DMR-TDMA.jpg)
+* Each slot is 30ms long
+  * 27.5ms data
+  *  2.5ms guard/gap (PA ramping & propagation delay)
+* ... one frequency, two usable 'channels' ... magic!
+</script></section></section><section ><section data-markdown><script type="text/template">
+<!-- .slide: data-background="images/g4klxgithub.png" -->
+</script></section><section data-markdown><script type="text/template">
+## What is MMDVM
+### Some history 
+* Jan 2009, Jonathan Naylor, G4KLX started developing GPL'ed D-Star software
+* Nov 2010, released ircddbgateway for D-Star
+* Sep 2015, started the MMDVM Yahoo group
+  * Jan 2016 First MMDVM and MMDVMhost code on github
+</script></section><section data-markdown><script type="text/template">
+## What is MMDVM
+* Multi Mode Digital Voice Modem
+ * Firmware that runs on Some Arduino, and some ST Micro processors
+ * Supports D-Star, DMR, System Fusion and P25 Digital Voice modes
+
+* MMDVMHost
+ * Software that interfaces to the MMDVM or DVMega on the one side, and a DMR network on the other 
+ * It supports D-Star, DMR, P25 Phase 1, and System Fusion
+   * On the D-Star side the MMDVMHost interfaces with the ircDDB Gateway
+   * On DMR it can connect to BrandMeister, DMR+, HB Link, XLX or DMRGateway
+     * DMRGateway can connect to multiple DMR networks at once
+   * On System Fusion it connects to the YSF Gateway.
+   * On P25 it connects to the P25 Gateway.
+</script></section><section data-markdown><script type="text/template">
+##  Recipe for a Repeater
+* Suitable RF  Hardware (Single Radio or repeater)
+* MMDVM on Arduino or other processor to interface with RF Hardware
+* MMDVHHost on Raspberry Pi or other suitable single board computer to interface between MMDVM and DMR, YSF, P25 and D-Star networks
+* some tweaking of configuration files and hey-presto ....
+* ... a Voice and Digital Multi-mode repeater or gateway
+</script></section></section><section ><section data-markdown><script type="text/template">
+## EI7CDD Repeater
+
+### The build
+
+<aside class="notes"><p>speaker notes FTW</p>
+</aside></script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-background="images/DSC_0534.JPG" -->
+</script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-background="images/DSC_0537.JPG" -->
+</script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-background="images/DSC_0539.JPG" -->
+</script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-background="images/DSC_0541.JPG" -->
+</script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-background="images/DSC_0542.png" -->
+</script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-background="images/ei7cdd_test.jpg" -->
+</script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-background="images/DSC_0639.png" -->
+
+## EI7CDD Repeater
+
+### The Installation. August 25, 2017
+
+<aside class="notes"><p>speaker notes FTW</p>
+</aside></script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-background="images/DSC_0644.JPG" -->
+
+</script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-background="images/DSC_0648.png" -->
+
+</script></section></section><section ><section data-markdown><script type="text/template">
+## BrandMeister Server Location
+* Netlabs Building, WIT West Campus, Carriganore, Waterford
+* Dual 10Gb's resilient fibre connections to HEAnet
+* 900kVA Generator
+* Two 300kVA UPS
+  * A and B feeds
+* Dual power feeds to each cabinet
+* Running on ESXi Virtual Cluster infrastructure
+  * Dell R720 Servers
+  * EMC SAN
+
+<aside class="notes"><p>speaker notes FTW</p>
+</aside></script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-background="images/CB0Q4551.jpg" -->
+</script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-background="images/CB0Q4589.jpg" -->
+</script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-background="images/image.png" -->
+
+</script></section><section data-markdown><script type="text/template">
+<!-- .slide: data-background="images/L1006133.jpg" -->
+
+</script></section></section><section ><section data-markdown><script type="text/template">
+<!-- .slide: data-background="images/bmhome.png" -->
+
+
+</script></section><section data-markdown><script type="text/template">
+## What is Brandmeister
+
+
+* Brandmeister is software for bulding the IP backbone of a Digital Voice Network
+  * Full Mesh network, all servers communicate with all others
+  * It is a switching system for Tier-2 DMR Radio 
+  * Allows interconnection to DMR-MARC and Hytera DMRplus Networks
+
+<aside class="notes"><p>I (R3AMB) started the project in June 2014 at HamRadio Exhibition in Friedrichshafen, Germany. Initially I planned to make an alternative master server for DMR+ and DMR-MARC. So BrandMeister is a playing with words &quot;brand new&quot; and &quot;master&quot; in German manner.</p>
+</aside></script></section><section data-markdown><script type="text/template">
+## Brandmeister Features (of most interest) 
+* Automatic Repeater Roaming (when supported by Manufacturer Transcievers)*
+* Private QSO's possible on any time-slot*
+* World-wide connectivity (via Mesh network)*
+* Send position information into APRS-IS*
+* Send and receive SMS Messages to/from other DMR radios*
+* Send and receive SMS messages to/from APRS*
+* Yaesu System Fusion Client (DMR TG 2724)*
+* Parrot (Echo test)
+</script></section><section data-markdown><script type="text/template">
+## Brandmeister Rules
+
+### Administrators of Master Servers agree to:
+ * Host a Linux server with a static IP running 24/7 on their country's internet backbone
+ * Provide and maintain SSH root access to the BrandMeister development team for maintenance
+ * Update, maintain and backup the server on a regular basis
+ * Update the BrandMeister application as updates become available and assist BrandMeister development team and users when troubleshooting is required
+ * Assist repeater owners, c-bridge owners, and other gateway owners connecting to the Master Server
+ * Configure static talkgroups and reflectors at any repeater owner's request
+ * Always accept repeater owners located in their countries of operation
+ * Assist travelling users in accessing any dynamic talkgroups
+ * Promote a positive image of BrandMeister
+</script></section><section data-markdown><script type="text/template">
+## Brandmeister Rules
+
+### Master Servers Administrators shall NOT:
+ * Interfere with FastForward traffic (between master servers)
+ * Block incoming or outgoing traffic from repeaters, unless specifically requested by repeater sysop
+ * Block private calls, unless specifically requested by repeater sysop
+ * Force repeater owners to use a Static Talkgroup and/or Reflectors configuration 
+
+</script></section><section data-markdown><script type="text/template">
+## Talkgroups and reflectors?
+### Talkgroups
+* Talk Groups (TG) are a way for groups of users to share a time slot (one-to-many)  without  distracting and disrupting other users of the time slot.
+  * If your radio is not programmed to receive the 'active' TG, you will not hear anything
+
+* Only one Talk Group can be using a time slot at a time.  If your radio is not programmed to listen to a Talk Group, you will not hear that Talk Group’s traffic. 
+
+* Two types, permanent and on-demand
+  * A permanent talkgroup is always active. This is done by the repeater owner.
+  * An on-demand talkgroup is inactive until a user activates them by keying their PTT with that talkgroup selected. Once active, it will stay active for 10 minutes before timing out, simply press the PTT to reset the timeout.
+</script></section><section data-markdown><script type="text/template">
+## Talkgroups and reflectors?
+### Reflectors
+* A reflector is a mapping done in software. Manually call the reflector (private call), and then your audio comes out on the requested Reflector/TG. Mostly used when you don't have a TG programmed into your radio
+* Reflector 4780 is just a mapping to TG 2722 on the Brandmeister network
+</script></section><section data-markdown><script type="text/template">
+## Talkgroup plan
+* Only two EI repeaters and two gateways currently connected (along with a bunch of hotspots)
+* Country plan is a 'gentlemans' agreement
+  * I contacted current repeater keepers before formulating the existing plan
+  * https://wiki.brandmeister.network/index.php/Ireland
+    * Couldn't find a decent plan so copied Norways
+      * https://wiki.brandmeister.network/index.php/Norway
+  * Broadly speaking, Ireland Calling TG2722 should be statically linked on Slot 2, move to Slot 1 for longer chats.   
+* This plan is not set in stone
+</script></section><section data-markdown><script type="text/template">
+## Talkgroup plan
+* Slot 1 (Reflectors/Dynamic Talkgroups/International)
+ * TG9 - Local Use
+ * TG91 - Worldwide
+   * WW Net once a week on Saturday afternoon (Dynamic TG)
+ * TG2723 - Ireland Chat
+ * TG2724 - Ireland Wires Bridge (to IE-YSF)
+ * TG27240 - SIRN Interlink (Static TG - testing)
+ * ... any other talkgroup you wish to program
+* Slot 2 (Local/National)
+ * TG2 - Cluster Use (SIRN Static TG)
+ * TG8 - Cluster Use
+ * TG9 - Local/Reflector Use
+ * TG2722 - Ireland Calling (Static TG)
+ 
+</script></section></section><section  data-markdown><script type="text/template">
+## GPS Position Information over DMR
+
+![image](images/2018-04-29-DMR-GPS.png)
+* April 29 2018, Retevis RT8 thrown on the dash of an Ambulance, no external Antenna
+</script></section><section  data-markdown><script type="text/template">
+<!-- 
+
+## AREN considerations
+* Digital (more secure by obfuscation)
+* Single frequency, dual channels
+* Potential for Net Control Operation by Rear Control
+  * Logistics and Tactical could be two separate TG's
+    * TG2729  - AREN Tactical
+    * TG27291 - AREN Logistics
+
+-->
+## Thanks for listening
+</script></section></div>
+    </div>
+
+    <script src="./dist/reveal.js"></script>
+
+    <script src="./plugin/markdown/markdown.js"></script>
+    <script src="./plugin/highlight/highlight.js"></script>
+    <script src="./plugin/zoom/zoom.js"></script>
+    <script src="./plugin/notes/notes.js"></script>
+    <script src="./plugin/math/math.js"></script>
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        plugins: [
+          RevealMarkdown,
+          RevealHighlight,
+          RevealZoom,
+          RevealNotes,
+          RevealMath
+        ]
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal().getQueryHash() || {};
+
+      var options = extend(defaultOptions, {"margin":0.1,"width":1920,"height":1080,"minscale":0.1,"maxScale":1.5}, queryOptions);
+    </script>
+
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+</html>
